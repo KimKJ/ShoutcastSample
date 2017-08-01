@@ -48,7 +48,7 @@ public class IcyDataSource extends DefaultHttpDataSource{
 
         long ret = super.open(dataSpec);
 
-        String icyMetaInt = getIcyMetaInt();
+        String icyMetaInt = getConnection().getHeaderField("icy-metaint");
 
         if (icyMetaInt != null) {
             mPeriod = Integer.valueOf(icyMetaInt);
@@ -59,13 +59,6 @@ public class IcyDataSource extends DefaultHttpDataSource{
         }
 
         return ret;
-    }
-
-    private String getIcyMetaInt() {
-        Map<String, List<String>> headers = getResponseHeaders();
-        List<String> values = headers.get("icy-metaint");
-        String icyMetaInt = values.get(0);
-        return icyMetaInt;
     }
 
     @Override
